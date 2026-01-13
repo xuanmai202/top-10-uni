@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本のトップ10名門大学</title>
+    <style>
+
+
+                                                                            /* ===== CSS CƠ BẢN ===== */
+        
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 50%, #f0f9ff 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Hoa anh đào trang trí */
+        .sakura {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        /* ===== CONTAINER CHÍNH ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* ===== TIÊU ĐỀ SECTION ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #dc2626;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* ===== GRID TRƯỜNG ĐẠI HỌC ===== */
+        .universities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        /* ===== CARD TRƯỜNG ===== */
+        .university-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .university-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(220, 38, 38, 0.2);
+            border-color: #fca5a5;
+        }
+
+        .university-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            font-size: 1.2rem;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .card-content .name-jp {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .ranking-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #dc2626, #f87171);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* ===== MODAL CHI TIẾT ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            position: relative;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-body h2 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .modal-body .name-jp {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: #fef2f2;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .info-item .label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .info-item .value {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .description {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* ===== THÔNG TIN NGƯỜI THỰC HIỆN ===== */
+        .creator-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 40px;
+        }
+
+        .creator-section h2 {
+            text-align: center;
+            color: #dc2626;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .creator-item {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .creator-item .label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .creator-item .value {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .universities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .creator-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <h1>
+            <span class="sakura">🌸</span>
+            日本のトップ10名門大学
+            <span class="sakura">🌸</span>
+        </h1>
+        <p>桜の国・日本を代表する大学を探る</p>
+    </header>
+
+                                      <!-- ===== NỘI DUNG CHÍNH ===== -->
+    <div class="container">
+        
+        <!-- Tiêu đề section -->
+        <div class="section-title">
+            <h2>🎓大学一覧 - List of Universities</h2>
+            <p>各大学をクリックして詳細情報を表示してください</p>
+        </div>
+
+        <!-- Grid các trường đại học -->
+        <div class="universities-grid" id="universitiesGrid">
+            <!-- Các card sẽ được tạo bằng JavaScript -->
+        </div>
+
+        <!-- Thông tin người thực hiện -->
+        <div class="creator-section">
+            <h2>👤 制作者情報</h2>
+            <div class="creator-grid">
+                <div class="creator-item">
+                    <div class="label">氏名</div>
+                    <div class="value"> H XUAN MAI AYUN ( 春梅 ) </div>
+                </div>
+                <div class="creator-item">
+                    <div class="label">学生番号</div>
+                    <div class="value">xxxx</div>
+                </div>
+                <div class="creator-item">
+                    <div class="label">学科</div>
+                    <div class="value">IT</div>
+                </div>
+                <div class="creator-item">
+                    <div class="label">学校名</div>
+                    <div class="value">専門学校デジタルアーツ東京</div>
+                </div>
+                <div class="creator-item">
+                    <div class="label">Email</div>
+                    <div class="value">ayunxuanmai202@gmail.com</div>
+                </div>
+                <div class="creator-item">
+                    <div class="label">担任先生</div>
+                    <div class="value">折本</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== MODAL CHI TIẾT ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <img id="modalImage" src="" alt="University">
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <h2 id="modalName"></h2>
+                <p class="name-jp" id="modalNameJp"></p>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="label">📍 住所 </div>
+                        <div class="value" id="modalLocation"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">🏆 ランク</div>
+                        <div class="value" id="modalRanking"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">⭐得意分野</div>
+                        <div class="value" id="modalStrength"></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">📅 設立年</div>
+                        <div class="value" id="modalFounded"></div>
+                    </div>
+                </div>
+                <div class="description" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>© 2026 作成　| 日本トップ１０大学</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== DỮ LIỆU 10 TRƯỜNG ĐẠI HỌC =====
+        const universities = [
+            {
+                id: 1,
+                name: "TOKYO UNIVERSITY",
+                nameJp: "東京大学 (Tōkyō Daigaku)",
+                location: " 東京・Tokyo",
+                image: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800",
+                strength: "学際的研究",
+                ranking: "#1 日本",
+                founded: "1877",
+                description: "東京大学（通称：東大）は、日本で最も歴史があり、最も権威のある大学です。1877年に設立され、これまでに多くの指導者、科学者、そして一流の実業家を輩出してきました。東大は卓越した研究水準で知られ、多くの学生にとって憧れの大学です。"
+            },
+            {
+                id: 2,
+                name: "KYOTO UNIVERSITY",
+                nameJp: "京都大学 (Kyōto Daigaku)",
+                location: "京都・Kyoto",
+                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800",
+                strength: "自然科学",
+                ranking: "#2 日本",
+                founded: "1897",
+                description: "京都大学は、学術的自由の精神で知られる日本屈指の研究大学です。これまでに多くのノーベル賞受賞者を輩出し、数々の重要な科学的発明の発祥地として知られています。"
+            },
+            {
+                id: 3,
+                name: "OSAKA UNIVERSITY",
+                nameJp: "大阪大学 (Ōsaka Daigaku)",
+                location: "大阪",
+                image: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800",
+                strength: "医学・工学",
+                ranking: "#3 日本",
+                founded: "1931",
+                description: "大阪大学は、優れた医学および工学分野の教育・研究で知られています。活気ある学習環境を備え、大手産業企業との強い連携を持つ大学です。"
+            },
+            {
+                id: 4,
+                name: "TOHOKU UNIVERSITY",
+                nameJp: "東北大学 (Tōhoku Daigaku)",
+                location: "Sendai",
+                image: "https://images.unsplash.com/photo-1480796927426-f609979314bd?w=800",
+                strength: "Vật liệu, Khoa học",
+                ranking: "#4 日本",
+                founded: "1907",
+                description: "東京工業大学（通称：東工大）は、日本を代表する工学系大学であり、科学技術分野に特化しています。多くの優秀な技術者や研究者を育成し、大手テクノロジー企業へ輩出しています。"
+            },
+            {
+                id: 5,
+                name: "TOKYO TECH",
+                nameJp: "東京工業大学 (Tōkyō Kōgyō Daigaku)",
+                location: "Tokyo",
+                image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800",
+                strength: "Công nghệ, Kỹ thuật",
+                ranking: "#5 日本",
+                founded: "1881",
+                description: "東京工業大学（通称：東工大）は、日本有数の工学系大学であり、科学技術分野に特化しています。多くの優秀な技術者や科学者を育成し、大手テクノロジー企業へ輩出しています。"
+            },
+            {
+                id: 6,
+                name: "NAGOYA UNIVERSITY",
+                nameJp: "名古屋大学 (Nagoya Daigaku)",
+                location: "Nagoya",
+                image: "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800",
+                strength: "Vật lý, Hóa học",
+                ranking: "#6 Nhật Bản",
+                founded: "1939",
+                description: "名古屋大学は、物理学および化学分野における革新的な研究で知られています。これまでに多くのノーベル賞受賞教授を輩出し、研究の質の高さで高く評価されています。"
+            },
+            {
+                id: 7,
+                name: "KYUUSHUU UNIVERSITY",
+                nameJp: "九州大学 (Kyūshū Daigaku)",
+                location: "Fukuoka",
+                image: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?w=800",
+                strength: "Nông nghiệp, Môi trường",
+                ranking: "#7 日本",
+                founded: "1911",
+                description: "九州大学は、日本南部を代表する大規模な研究大学です。農学、環境科学、そして国際連携分野において高い評価を受けています。"
+            },
+            {
+                id: 8,
+                name: "HOKKAIDO UNIVERSITY",
+                nameJp: "北海道大学 (Hokkaidō Daigaku)",
+                location: "Sapporo",
+                image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800",
+                strength: "Thú y, Nông nghiệp",
+                ranking: "#8　日本",
+                founded: "1876",
+                description: "description: 北海道大学は、日本最北の島に位置し、広大で美しいキャンパスで知られています。農学、獣医学、寒冷地環境科学分野の研究において高い評価を受けています。"
+
+            },
+            {
+                id: 9,
+                name: "KEIO UNIVERSITY",
+                nameJp: "慶應義塾大学 (Keiō Gijuku Daigaku)",
+                location: "Tokyo",
+                image: "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=800",
+                strength: "Kinh tế, Kinh doanh",
+                ranking: "#9 日本",
+                founded: "1858",
+                description: "慶應義塾大学は、福澤諭吉によって設立された日本最古の私立大学です。経済学・経営学分野に強みを持ち、企業界において幅広い卒業生ネットワークを誇ります。"
+            },
+            {
+                id: 10,
+                name: "WASEDA UNIVERSITY",
+                nameJp: "早稲田大学 (Waseda Daigaku)",
+                location: "Tokyo",
+                image: "https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?w=800",
+                strength: "Khoa học xã hội, Báo chí",
+                ranking: "#10 日本",
+                founded: "1882",
+                description: "早稲田大学は、日本を代表する名門私立大学の一つです。社会科学やジャーナリズム分野に強みを持ち、多くの政治家や著名な作家を輩出してきました。"
+            }
+        ];
+
+        // ===== HÀM CARD TRƯỜNG ĐẠI HỌC =====
+        function createUniversityCard(university) {
+            return `
+                <div class="university-card" onclick="openModal(${university.id})">
+                    <img src="${university.image}" alt="${university.name}">
+                    <div class="card-content">
+                        <h3>${university.name}</h3>
+                        <p class="name-jp">${university.nameJp}</p>
+                        <span class="ranking-badge">${university.ranking}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== HÀM HIỂN THỊ TẤT CẢ CÁC TRƯỜNG =====
+        function displayUniversities() {
+            const grid = document.getElementById('universitiesGrid');
+            grid.innerHTML = universities.map(createUniversityCard).join('');
+        }
+
+        // ===== HÀM MỞ MODAL CHI TIẾT =====
+        function openModal(id) {
+            const university = universities.find(u => u.id === id);
+            if (!university) return;
+
+            // Cập nhật nội dung modal
+            document.getElementById('modalImage').src = university.image;
+            document.getElementById('modalName').textContent = university.name;
+            document.getElementById('modalNameJp').textContent = university.nameJp;
+            document.getElementById('modalLocation').textContent = university.location;
+            document.getElementById('modalRanking').textContent = university.ranking;
+            document.getElementById('modalStrength').textContent = university.strength;
+            document.getElementById('modalFounded').textContent = university.founded;
+            document.getElementById('modalDescription').textContent = university.description;
+
+            // Hiển thị modal
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
+        }
+
+        // ===== HÀM ĐÓNG MODAL =====
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+        }
+
+        // ===== ĐÓNG MODAL KHI CLICK BÊN NGOÀI =====
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ===== ĐÓNG MODAL BẰNG PHÍM ESC =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ===== KHỞI TẠO TRANG =====
+        displayUniversities();
+    </script>
+
+</body>
+</html>
